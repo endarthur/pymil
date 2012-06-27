@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # A International World Map encoder - from geographic coordinates
 # May someday accept UTM as well, but tonight it will be simpler
-# OO mode, hopefully
+# OO mode, hopefully. Maybe.
 from string import uppercase as zone
 
 class CIMcode(object):
@@ -10,7 +10,7 @@ class CIMcode(object):
         """ Create the CIMcode object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
         self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4}
-        self.coordinates = (lat, lon)
+        self.coordinates = (lat, lon) # Just might be useful to store a small coordinates tupple. Who knows?
         self.scales = [(('V', 'X'), ('Y', 'Z'))[int(lat % 4 / 2)][int(lon % 6 / 3)], # 2 by 3
 (('A', 'B'), ('C', 'D'))[int(lat % 2 / 1)][int(lon % 3 / 1.5)], # 1 by 1.5
 (('I', 'II', 'III'), ('IV', 'V', 'VI'))[int(lat % 1 / 0.5)][int(lon % 1.5 / 0.5)], # 0.5 by 0.5
@@ -25,5 +25,3 @@ class CIMcode(object):
     def __getitem__(self, scale):
         """ Return a list with the scale codes up to the scale requested. """
         return self.scales[0:self.scalesindex[scale] + 1]
-            
-            
