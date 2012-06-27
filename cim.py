@@ -36,6 +36,6 @@ class CIMcode(object):
         #~ scale += '-' + fifty[int(lat % 0.5 / 0.25)][int(lon % 0.5 / 0.25)]
         #~ scale += '-' + twenty_five[int(lat % 0.25 / 0.125)][int( lon % 0.25 / 0.125)]
     def __repr__(self):
-        return "%s%s-%s-%s" % (self.hemisphere, self.zone, self.fuse, "-".join(self.scales))
+        return "%s%s-%s-%s" % (self.hemisphere, self.zone, self.fuse, "-".join(self.scales.values()))
             
             
