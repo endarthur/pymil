@@ -22,6 +22,7 @@ class CIMcode(object):
     def __init__(self, lat, lon):
         """ Create the CIMcode object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
+        self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4}
         self.coordinates = (lat, lon)
         self.scales = [(('V', 'X'), ('Y', 'Z'))[int(lat % 4 / 2)][int(lon % 6 / 3)], # 2 by 3
 (('A', 'B'), ('C', 'D'))[int(lat % 2 / 1)][int(lon % 3 / 1.5)], # 1 by 1.5
@@ -34,8 +35,7 @@ class CIMcode(object):
     def __repr__(self):
         """ Just cat everything in the max scale defined by the CIM code. """
         return "%s%s-%s-%s" % (self.hemisphere, self.zone, self.fuse, "-".join(self.scales))
-    scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4}
-    def __get__(self, scale):
-        return self.scales[0:scalesindex[scale] + 1]
+    def __getitem__(self, scale):
+        return self.scales[0:self.scalesindex[scale] + 1]
             
             
