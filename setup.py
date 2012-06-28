@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name = "pymil",
-    version = "0.0.1",
+    version = "0.1.0",
     author = "Arthur Endlein",
     author_email = "endarthur@gmail.com",
     description = ("A basic Open-source Carte internationale du Monde au Millionième"
@@ -19,7 +19,7 @@ setup(
     keywords = "cartography maps GIS",
     url = "http://packages.python.org/pymil",
     packages=['pymil'],
-    long_description=read('README.md'),
+    long_description=read('README.txt'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",

@@ -2,26 +2,26 @@
 # -*- coding: utf-8 -*-
 
 #==============================================================================#
-#      CIMcode - Open-source Carte internationale du Monde au Millionième      #
+#      pymil - Open-source Carte internationale du Monde au Millionième        #
 #                               Scale Coder                                    #
 #                                                                              #
 #    Copyright (c)  2012 Arthur Endlein.                                       #
 #                                                                              #
 #                                                                              #
-#    This file is part of CIMcode.                                             #
+#    This file is part of pymil.                                               #
 #                                                                              #
-#    CIMcode is free software: you can redistribute it and/or modify           #
+#    pymil is free software: you can redistribute it and/or modify             #
 #    it under the terms of the GNU General Public License as published by      #
 #    the Free Software Foundation, either version 3 of the License, or         #
 #    (at your option) any later version.                                       #
 #                                                                              #
-#    CIMcode is distributed in the hope that it will be useful,                #
+#    pymil is distributed in the hope that it will be useful,                  #
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of            #
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #
 #    GNU General Public License for more details.                              #
 #                                                                              #
 #    You should have received a copy of the GNU General Public License         #
-#    along with CIMcode.  If not, see <http://www.gnu.org/licenses/>.          #
+#    along with pymil.  If not, see <http://www.gnu.org/licenses/>.            #
 #                                                                              #
 #                                                                              #
 #==============================================================================#
@@ -33,7 +33,7 @@ from string import uppercase as zone
 
 class code(object):
     def __init__(self, lat, lon):
-        """ Create the CIMcode object, from latitude and longitude in decimal degrees. 
+        """ Create the pymil object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
         self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4}
         self.coordinates = (lat, lon) # Just might be useful to store a small coordinates tupple. Who knows?
