@@ -24,8 +24,8 @@ The letters that follow this are subdivisions of the basic millionth chart and i
 TODO
 ====
 
-* Make better docs. Explain what the hell the CIM code is, with images.
-* Extend functionality, maybe letting you use UTM and whatsoever.
+* Make better docs.
+* Extend functionality, maybe letting you use UTM and whatsoever. DMS would be nice and easy, also.
 
 Thanks
 ======
