@@ -16,7 +16,7 @@ setup(
     author = "Arthur Endlein",
     author_email = "endarthur@gmail.com",
     description = ("A basic Open-source Carte internationale du Monde au Millionième"
-                                   "nomenclature encoder."),
+                                   " nomenclature encoder."),
     license = "GPL",
     keywords = "cartography maps GIS",
     url = "http://pypi.python.org/pypi/pymil/",
