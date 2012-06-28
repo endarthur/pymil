@@ -21,7 +21,7 @@ setup(
     keywords = "cartography maps GIS",
     url = "http://pypi.python.org/pypi/pymil/",
     packages=['pymil'],
-    long_description=read('README.txt'),
+    long_description=read('README.rst'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",

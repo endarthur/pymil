@@ -50,4 +50,4 @@ class code(object):
         return "%s%s-%s-%s" % (self.hemisphere, self.zone, self.fuse, "-".join(self.scales))
     def __getitem__(self, scale):
         """ Return a list with the scale codes up to the scale requested. """
-        return self.scales[0:self.scalesindex[scale] + 1]
+        return [self.hemisphere, self.zone, self.fuse] + self.scales[0:self.scalesindex[scale] + 1]
