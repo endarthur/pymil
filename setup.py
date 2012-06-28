@@ -19,13 +19,13 @@ setup(
                                    "nomenclature encoder."),
     license = "GPL",
     keywords = "cartography maps GIS",
-    url = "http://packages.python.org/pymil",
+    url = "http://pypi.python.org/pypi/pymil/",
     packages=['pymil'],
     long_description=read('README.txt'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Topic :: Scientific/Engineering :: GIS",
     ],
 )
