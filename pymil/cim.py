@@ -31,7 +31,7 @@
 # OO mode, hopefully. Maybe.
 from string import uppercase as zone
 
-class CIMcode(object):
+class code(object):
     def __init__(self, lat, lon):
         """ Create the CIMcode object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
