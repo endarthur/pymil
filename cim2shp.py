@@ -3,7 +3,7 @@
 
 #==============================================================================#
 #      pymil - Open-source Carte internationale du Monde au Millionième        #
-#                               Scale Coder                                    #
+#                               Scale Codec                                    #
 #                                                                              #
 #    Copyright (c)  2012 Arthur Endlein.                                       #
 #                                                                              #
@@ -91,7 +91,7 @@ def make_shape(minLon, maxLon, minLat, maxLat, cimCode):
 if __name__=="__main__":
     from pymil import code
     ccode = code(-22.5, -47.7)
-    coords, cimCode = ccode["50k"]
+    coords, cimCode = ccode["10k"]
     print cimCode
     #~ cimCode = repr(ccode)
     #~ minLon, maxLon, minLat, maxLat

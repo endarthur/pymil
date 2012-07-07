@@ -3,7 +3,7 @@
 
 #==============================================================================#
 #      pymil - Open-source Carte internationale du Monde au Millionième        #
-#                               Scale Coder                                    #
+#                               Scale Codec                                    #
 #                                                                              #
 #    Copyright (c)  2012 Arthur Endlein.                                       #
 #                                                                              #
@@ -29,24 +29,26 @@
 # A International World Map encoder - from geographic coordinates
 # May someday accept UTM as well, but tonight it will be simpler
 # OO mode, hopefully. Maybe.
-# Eventually decoder, as well. Yep, it decodes. Horribly hackish, though. Must better that.
+# Eventually decoder, as well. Yep, it decodes. Horribly hackish, though. Must better that. NEED TDD!!! LAST COMMIT WAS A PAIN!!!
 from string import uppercase as zones
+TWOM_30S = 0.125/3.0
 
 class code(object):
     def __init__(self, lat, lon):
         """ Create the pymil object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
-        self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4}
+        self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4, "10k":5}
         self.coordinates = (lat, lon) # Just might be useful to store a small coordinates tupple. Who knows?
         print self.coordinates
         la = abs(lat) % 4
         lo = abs(lon + 180) % 6
         print la, lo
-        self.scales = [(('V', 'X'), ('Y', 'Z'))[int(la % 4 / 2)][int(lo % 6 / 3)], # 2 by 3               1:500.000
-        (('A', 'B'), ('C', 'D'))[int(la % 2 / 1)][int(lo % 3 / 1.5)], # 1 by 1.5                          1:250.000
-        (('I', 'II', 'III'), ('IV', 'V', 'VI'))[int(la % 1 / 0.5)][int(lo % 1.5 / 0.5)], # 0.5 by 0.5     1:100.000
-        (('1', '2'), ('3', '4'))[int(la % 0.5 / 0.25)][int(lo % 0.5 / 0.25)], # 0.25 by 0.25              1:50.000
-        (('NO', 'NE'), ('SO', 'SE'))[int(la % 0.25 / 0.125)][int( lo % 0.25 / 0.125)]] # 0.125 by 0.125   1:25.000
+        self.scales = [(('V', 'X'), ('Y', 'Z'))[int(la % 4 / 2)][int(lo % 6 / 3)], # 2 by 3                         1:500.000
+        (('A', 'B'), ('C', 'D'))[int(la % 2 / 1)][int(lo % 3 / 1.5)], # 1 by 1.5                                    1:250.000
+        (('I', 'II', 'III'), ('IV', 'V', 'VI'))[int(la % 1 / 0.5)][int(lo % 1.5 / 0.5)], # 0.5 by 0.5               1:100.000
+        (('1', '2'), ('3', '4'))[int(la % 0.5 / 0.25)][int(lo % 0.5 / 0.25)], # 0.25 by 0.25                        1:50.000
+        (('NO', 'NE'), ('SO', 'SE'))[int(la % 0.25 / 0.125)][int( lo % 0.25 / 0.125)], # 0.125 by 0.125             1:25.000
+        (('A', 'B'), ('C', 'D'), ('E', 'F'))[int(la % 0.125 / TWOM_30S)][int( lo % 0.125 / 0.0625)]]#TWOM_30S by 0.0625 1:10.000
         self.hemisphere = (lat > 0) and "N" or "S"
         self.zone = zones[int(abs(lat))/4]
         self.fuse = str((180 + int(lon))/6 + 1)
@@ -64,8 +66,9 @@ def bounding_coordinates( scale_code, zone, fuse, hemisphere):
     {'A':(0.0, 0.0), 'B':(0.0, 1.5), 'C':(1.0, 0.0), 'D':(1.0, 1.5)},
     {'I':(0.0, 0.0), 'II':(0.0, 0.5), 'III':(0.0, 1.0), 'IV':(0.5, 0.0), 'V':(0.5, 0.5), 'VI':(0.5, 1.0)},
     {'1':(0.0, 0.0), '2':(0.0, 0.25), '3':(0.25, 0.0), '4':(0.25, 0.25)},
-    {'NO':(0.0, 0.0), 'NE':(0.0, 0.125), 'SO':(0.125, 0.0), 'SE':(0.125, 0.125)})
-    dims = {1:(2.0, 3.0), 2:(1.0, 1.5), 3:(0.5, 0.5), 4:(0.25, 0.25), 5:(0.125, 0.125)}[len(scale_code)]
+    {'NO':(0.0, 0.0), 'NE':(0.0, 0.125), 'SO':(0.125, 0.0), 'SE':(0.125, 0.125)},
+    {'A':(0.0, 0.0), 'B':(0.0, 0.0625), 'C':(TWOM_30S, 0.0), 'D':(TWOM_30S, 0.0625), 'E':(TWOM_30S*2, 0.0), 'F':(TWOM_30S*2, 0.0625)})
+    dims = {1:(2.0, 3.0), 2:(1.0, 1.5), 3:(0.5, 0.5), 4:(0.25, 0.25), 5:(0.125, 0.125), 6:(TWOM_30S, 0.0625)}[len(scale_code)]
     print dims
     lat = zones.index(zone) * 4
     print lat
@@ -95,5 +98,5 @@ if __name__ == "__main__":
     print cimc["50k"]
     cimc = code(-22.5, -47.7)
     print cimc
-    print cimc["50k"]
+    print cimc["10k"]
     
