@@ -37,7 +37,7 @@ class code(object):
     def __init__(self, lat, lon):
         """ Create the pymil object, from latitude and longitude in decimal degrees. 
         In the future, hopefully, it will be possible to use different syntaxes for lat and lon."""
-        self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4, "10k":5}
+        self.scalesindex = {"500k": 0, "250k": 1, "100k": 2, "50k": 3, "25k": 4, "10k":5, "1m":-1}
         self.coordinates = (lat, lon) # Just might be useful to store a small coordinates tupple. Who knows?
         print self.coordinates
         la = abs(lat) % 4
@@ -68,7 +68,7 @@ def bounding_coordinates( scale_code, zone, fuse, hemisphere):
     {'1':(0.0, 0.0), '2':(0.0, 0.25), '3':(0.25, 0.0), '4':(0.25, 0.25)},
     {'NO':(0.0, 0.0), 'NE':(0.0, 0.125), 'SO':(0.125, 0.0), 'SE':(0.125, 0.125)},
     {'A':(0.0, 0.0), 'B':(0.0, 0.0625), 'C':(TWOM_30S, 0.0), 'D':(TWOM_30S, 0.0625), 'E':(TWOM_30S*2, 0.0), 'F':(TWOM_30S*2, 0.0625)})
-    dims = {1:(2.0, 3.0), 2:(1.0, 1.5), 3:(0.5, 0.5), 4:(0.25, 0.25), 5:(0.125, 0.125), 6:(TWOM_30S, 0.0625)}[len(scale_code)]
+    dims = {0:(4.0, 6.0), 1:(2.0, 3.0), 2:(1.0, 1.5), 3:(0.5, 0.5), 4:(0.25, 0.25), 5:(0.125, 0.125), 6:(TWOM_30S, 0.0625)}[len(scale_code)]
     print dims
     lat = zones.index(zone) * 4
     print lat
@@ -95,7 +95,7 @@ def bounding_coordinates( scale_code, zone, fuse, hemisphere):
 if __name__ == "__main__":
     cimc = code(-11.4, -54.4)
     print cimc
-    print cimc["50k"]
+    print cimc["1m"]
     cimc = code(-22.5, -47.7)
     print cimc
     print cimc["10k"]
