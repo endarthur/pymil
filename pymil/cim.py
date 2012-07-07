@@ -55,6 +55,7 @@ class code(object):
         return bounding_coordinates(self.scales[0:self.scalesindex[scale] + 1], self.zone, self.fuse, self.hemisphere)
 
 def bounding_coordinates( scale_code, zone, fuse, hemisphere):
+    """Return the bounding box for the given CIM encoded chart, in ((minlon, maxlon),(minlat, maxlat))"""
     coordinates = ({'V':(0.0, 0.0), 'X':(0.0, 3.0), 'Y':(2.0, 0.0), 'Z':(2.0, 3.0)},
     {'A':(0.0, 0.0), 'B':(0.0, 1.5), 'C':(1.0, 0.0), 'D':(1.0, 1.5)},
     {'I':(0.0, 0.0), 'II':(0.0, 0.5), 'III':(0.0, 1.0), 'IV':(0.5, 0.0), 'V':(0.5, 0.5), 'VI':(0.5, 1.0)},
@@ -69,9 +70,9 @@ def bounding_coordinates( scale_code, zone, fuse, hemisphere):
             dy, dx = coords[scode]
             lon += dx
             lat -= dy
-        return ((lat, lon), (lat, lon + dims[1]), (lat - dims[0], lon), (lat - dims[0], lon + dims[1]))
+        return (lon, lon + dims[1]), (lat, lat - dims[0]) #, lon), (lat - dims[0], lon + dims[1]))
     else:
-        return ((lat, lon), (lat, lon + 6.0), (lat - 4.0, lon), (lat - 4.0, lon + 6.0))
+        return (lon, lon + 6.0), (lat, lat - 4.0)
         
         
     
