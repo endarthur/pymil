@@ -26,30 +26,43 @@
 #                                                                              #
 #==============================================================================#
 
+import os, os.path, shutil
 import osgeo.ogr
+import osgeo.osr
+
 
 def make_shape(minLon, maxLon, minLat, maxLat, cimCode):
+    
+    if os.path.exists("bounding-box"):
+        shutil.rmtree("bounding-box")
+    os.mkdir("bounding-box")
+    dstPath = os.path.join("bounding-box", "boundingBox.shp")
+
     
     spatialReference = osgeo.osr.SpatialReference()
     spatialReference.SetWellKnownGeogCS('WGS84')
     #~ We can now create the Shapefile itself using this spatial reference:
     driver = osgeo.ogr.GetDriverByName("ESRI Shapefile")
-    dstFile = driver.CreateDataSource("boundingBoxes.shp")
+    dstFile = driver.CreateDataSource(dstPath)
     dstLayer = dstFile.CreateLayer("layer", spatialReference)
+    
     #~ 2.	 After creating the Shapefile, you next define the various fields that will hold
     #~ the metadata for each feature. In this case, let's add two fields to store the
     #~ country name and its ISO-3166 code:
     #~ fieldDef = osgeo.ogr.FieldDefn("COUNTRY", osgeo.ogr.OFTString)
     #~ fieldDef.SetWidth(50)
     #~ dstLayer.CreateField(fieldDef)
+    
     fieldDef = osgeo.ogr.FieldDefn("CIMCODE", osgeo.ogr.OFTString)
     fieldDef.SetWidth(20)
     dstLayer.CreateField(fieldDef)
+    
     #~ 3.	 We now need to create the geometry for each feature—in this case, a polygon
     #~ defining the country's bounding box. A polygon consists of one or more
     #~ linear rings; the first linear ring defines the exterior of the polygon, while
     #~ additional rings define "holes" inside the polygon. In this case, we want a
     #~ simple polygon with a square exterior and no holes:
+    
     linearRing = osgeo.ogr.Geometry(osgeo.ogr.wkbLinearRing)
     linearRing.AddPoint(minLon, minLat)
     linearRing.AddPoint(maxLon, minLat)
@@ -58,22 +71,28 @@ def make_shape(minLon, maxLon, minLat, maxLat, cimCode):
     linearRing.AddPoint(minLon, minLat)
     polygon = osgeo.ogr.Geometry(osgeo.ogr.wkbPolygon)
     polygon.AddGeometry(linearRing)
+    print minLon, maxLon, minLat, maxLat
     #~ Once we have the polygon, we can use it to create a feature:
+    
     feature = osgeo.ogr.Feature(dstLayer.GetLayerDefn())
     feature.SetGeometry(polygon)
     feature.SetField("CIMCODE", cimCode)
     dstLayer.CreateFeature(feature)
     feature.Destroy()
+    
     #~ Notice how we use the setField() method to store the feature's
     #~ metadata. We also have to call the Destroy() method to close the
     #~ feature once we have finished with it; this ensures that the feature is
     #~ saved into the Shapefile.
     #~ 4.	 Finally, we call the Destroy() method to close the output Shapefile:
+    
     dstFile.Destroy()
     
 if __name__=="__main__":
     from pymil import code
-    ccode = code(-11, -54)
-    minLon, maxLon, minLat, maxLat, cimCode = cimc["100k"]
+    ccode = code(-22.5, -47.7)
+    coords, cimCode = ccode["50k"]
+    print cimCode
     #~ cimCode = repr(ccode)
-    make_shape(minLon, maxLon, minLat, maxLat, cimCode)
+    #~ minLon, maxLon, minLat, maxLat
+    make_shape(*coords, cimCode=cimCode)

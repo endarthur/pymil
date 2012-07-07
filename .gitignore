@@ -1,3 +1,7 @@
 *.pyc
 dist/*
 pymil.egg-info/*
+*.dbf
+*.prj
+*.shp
+*shx
