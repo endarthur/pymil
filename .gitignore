@@ -5,3 +5,4 @@ pymil.egg-info/*
 *.prj
 *.shp
 *shx
+*.csv
