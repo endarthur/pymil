@@ -5,7 +5,7 @@ pymil - Open-source Carte internationale du Monde au Millionième nomenclature e
 Pymil is a simple Carte internationale du Monde au Millionième nomenclature coder. You
 might find it useful for searching maps for a specific coordinate pair.
 
-```
+
 usage: pymil.py [-h] [--geojson] [--scale SCALE] latitude longitude
 
 calculates CIM code for given coordinate pair.
@@ -18,7 +18,7 @@ optional arguments:
   -h, --help     show this help message and exit
   --geojson      prints geoJSON of the map area instead of the code.
   --scale SCALE  scale to be encoded, defaults to 1:25.000.
-```
+
 
 CIM
 ===
